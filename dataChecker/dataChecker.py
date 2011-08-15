@@ -1,5 +1,7 @@
 files = ['test1.vtk', 'test2.vtk']
-from /projects/schiz/software/scripts/MeasureTracts-DK/dataChecker/measureTracts import printToCSV
+import sys
+sys.path.append('/projects/schiz/software/SlicerModules/MeasureTracts/')
+from measureTractsFunctions import printToCSV
 printToCSV(files, 'testValues.csv')
 
 import csv
