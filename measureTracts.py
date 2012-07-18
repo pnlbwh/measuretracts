@@ -15,7 +15,7 @@ def main():
     for fileNum in range(len(args.files)):
         if not os.path.exists(args.files[fileNum]):
             print "sorry, no file found at" + args.files[fileNum]
-    if os.path.isfile(args.fileName) and args.force==False:        
+    if os.path.isfile(args.fileName) and args.force==False:
         print "The file " + args.fileName + " already exists. Are you sure you want to append? [y/n]"
         if raw_input()=='n':
             sys.exit()
@@ -24,7 +24,7 @@ def main():
         sys.exit()
     if '.csv' not in args.fileName:
         print "Please enter an output with extension .csv"
-    
+
         sys.exit()
     [names,values]=printToCSV(args.files, str(args.fileName))
     print names, values

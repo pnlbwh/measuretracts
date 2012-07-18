@@ -6,13 +6,14 @@ import csv
 def VTKdata(VTK):
 
     pTract=getTensorData.get_all_tensors(VTK)
+    num_fibers = getTensorData.get_num_fibers(VTK)
     length=len(pTract)
-    
+
     listOfNames = ['FA','trace','mode','Linear','Planar','Spherical','axial','radial']
-    results = {}    
+    results = {}
     for num in range(len(listOfNames)):
-        currentName=listOfNames[num]        
-        results[currentName]={}   
+        currentName=listOfNames[num]
+        results[currentName]={}
 
     for num in results.keys():
         results[num]['values'] = np.zeros(length)
@@ -57,4 +58,7 @@ def VTKdata(VTK):
     for measure in results.keys():
         rawValues=results[measure]['values']
         del results[measure]['values']
+
+    results['num_fibers'] = {'mean': numfibers}
+    listOfNames += ['num_fibers']
     return  results, listOfNames #, rawValues
