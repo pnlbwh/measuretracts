@@ -2,8 +2,7 @@
 import sys
 import argparse
 import os
-sys.path.append('/projects/schiz/software/SlicerModules/MeasureTracts')
-from measureTractsFunctions import printToCSV
+from MeasureTractsModule.measureTractsFunctions import printToCSV
 
 def main():
     parser = argparse.ArgumentParser(description='computes various tract measures including FA and mode and saves the data to a ".csv"')
