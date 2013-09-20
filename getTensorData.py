@@ -38,6 +38,8 @@ def get_tensor_array(filename):
     tensor_array = point_data.GetArray('tensor')
     if not tensor_array:
         tensor_array = point_data.GetArray('tensors')
+    if not tensor_array:
+        tensor_array = point_data.GetArray('Tensors_')
     return tensor_array
 
 def get_all_tensors(filename):
