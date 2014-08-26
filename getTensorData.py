@@ -5,6 +5,7 @@ Right now this only gets all in the volume tensors;
 plan on it getting individual fibers eventually.  This is just to
 get David started"""
 import vtk
+import sys
 
 def get_num_fibers(filename):
     #reader = vtk.vtkDataSetReader()
@@ -35,11 +36,18 @@ def get_tensor_array(filename):
     output = reader.GetOutput()
     point_data = output.GetPointData()
     #scalar_array = point_data.GetArray('scalar')
-    tensor_array = point_data.GetArray('tensor')
+    tensor_array = point_data.GetTensors()
+    if not tensor_array:
+        tensor_array = point_data.GetArray('tensor')
     if not tensor_array:
         tensor_array = point_data.GetArray('tensors')
     if not tensor_array:
         tensor_array = point_data.GetArray('Tensors_')
+    if not tensor_array:
+        tensor_array = point_data.GetArray('tensor1')
+    if not tensor_array:
+        print "Cannot find tensors in %s" % filename
+        sys.exit(1)
     return tensor_array
 
 def get_all_tensors(filename):
