@@ -22,16 +22,12 @@ def get_tensor_array(filename):
     reader.Update()
 
     output = reader.GetOutput()
-    npoints = output.GetNumberOfPoints()
-    print 'npoints:', npoints
-    ncells = output.GetNumberOfCells()
-    print 'ncells:', ncells
-    nscalars = reader.GetNumberOfScalarsInFile()
-    print 'nscalars:', nscalars
-    print reader.GetScalarsNameInFile(0)
-    ntensors = reader.GetNumberOfTensorsInFile()
-    print 'ntensors:', ntensors
-    print reader.GetTensorsNameInFile(0)
+    print 'npoints:', output.GetNumberOfPoints(),
+    print 'ncells:', output.GetNumberOfCells(),
+    print 'nscalars:', reader.GetNumberOfScalarsInFile(),
+    print 'ntensors:', reader.GetNumberOfTensorsInFile(),
+    print 'ScalarName:', reader.GetScalarsNameInFile(0),
+    print 'TensorName:', reader.GetTensorsNameInFile(0)
 
     output = reader.GetOutput()
     point_data = output.GetPointData()

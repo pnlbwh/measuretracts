@@ -26,7 +26,7 @@ def main():
 
         sys.exit()
     [names,values]=printToCSV(args.files, str(args.fileName))
-    print names, values
+    #print names, values
 
 if __name__=="__main__":
     main()
