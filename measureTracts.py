@@ -25,7 +25,7 @@ def main():
         print "Please enter an output with extension .csv"
 
         sys.exit()
-    [names,values]=printToCSV(args.files, str(args.fileName))
+    printToCSV(args.files, str(args.fileName))
     #print names, values
 
 if __name__=="__main__":

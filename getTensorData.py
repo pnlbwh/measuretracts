@@ -17,6 +17,7 @@ def get_num_fibers(filename):
 
 def get_tensor_array(filename):
     """Returns vtk tensor array object which can have 'GetTuple9(i)' called on it."""
+    print "Reading " + filename
     reader = vtk.vtkDataSetReader()
     reader.SetFileName(filename)
     reader.Update()

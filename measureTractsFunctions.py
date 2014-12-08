@@ -144,21 +144,24 @@ def printToCSV(nodes,fileName):
         for key in firstNode[tag].keys():
             operation.append(key)
             data.append(tag)
-    print data
     length=len(data)
     measureTags = [0]*length
     for num in range(length):
         these=data[num]+'-'+operation[num]
         measureTags[num] = these
     import re
-    printTags=re.sub('\[', '',str(measureTags),count=0)
-    printTags=re.sub('\]', '',str(printTags),count=0)
-    fileOut.writerow(['file name', printTags])
+    #printTags=re.sub('\[', '',str(measureTags),count=0)
+    #printTags=re.sub('\]', '',str(printTags),count=0)
+    #printTags = ','.join(measureTags)
+    print "Computing the following measures"
+    print ','.join(measureTags)
+    print
+    fileOut.writerow(['Tract'] + measureTags)
 
     measureNums = [0]*length
     numberOfInputs=len(nodes)
     import numpy
-    measureLines=[]
+    #rows=[]
     lineNum=0
     for node in nodes:
         results=getData(node)
@@ -169,9 +172,13 @@ def printToCSV(nodes,fileName):
                 measureNums[tally] = results[tag][key]
                 tally=tally+1
 
-        measureLines.append([node, measureNums])
-        printNums=re.sub('\]', '',str(measureLines[lineNum]),count=0)
-        printNums=re.sub('\[', '',str(measureLines[lineNum]),count=0)
-        fileOut.writerow([printNums])
+        #rows.append([node, measureNums])
+        #printNums=re.sub('\]', '',str(rows[lineNum]),count=0)
+        #printNums=re.sub('\[', '',str(rows[lineNum]),count=0)
+        #printNums = ','.join(map(str,rows[lineNum]))
+        #fileOut.writerow(printNums)
+        fileOut.writerow([node] + measureNums)
         lineNum=lineNum+1
-    return printTags, measureLines
+        print "Finished computing measures for '%s'\n" % node
+    print
+    print "Made " + fileName
