@@ -23,25 +23,25 @@ def get_tensor_array(filename):
     reader.Update()
 
     output = reader.GetOutput()
-    print 'npoints:', output.GetNumberOfPoints(),
-    print 'ncells:', output.GetNumberOfCells(),
-    print 'nscalars:', reader.GetNumberOfScalarsInFile(),
-    print 'ntensors:', reader.GetNumberOfTensorsInFile(),
-    print 'ScalarName:', reader.GetScalarsNameInFile(0),
+    print 'npoints:', output.GetNumberOfPoints()
+    print 'ncells:', output.GetNumberOfCells()
+    print 'nscalars:', reader.GetNumberOfScalarsInFile()
+    print 'ntensors:', reader.GetNumberOfTensorsInFile()
+    print 'ScalarName:', reader.GetScalarsNameInFile(0)
     print 'TensorName:', reader.GetTensorsNameInFile(0)
 
     output = reader.GetOutput()
-    point_data = output.GetPointData()
-    #scalar_array = point_data.GetArray('scalar')
-    tensor_array = point_data.GetTensors()
+    pointdata = output.GetPointData()
+    #scalar_array = pointdata.GetArray('scalar')
+    tensor_array = pointdata.GetTensors()
     if not tensor_array:
-        tensor_array = point_data.GetArray('tensor')
+        tensor_array = pointdata.GetArray('tensor')
     if not tensor_array:
-        tensor_array = point_data.GetArray('tensors')
+        tensor_array = pointdata.GetArray('tensors')
     if not tensor_array:
-        tensor_array = point_data.GetArray('Tensors_')
+        tensor_array = pointdata.GetArray('Tensors_')
     if not tensor_array:
-        tensor_array = point_data.GetArray('tensor1')
+        tensor_array = pointdata.GetArray('tensor1')
     if not tensor_array:
         print "Cannot find tensors in %s" % filename
         sys.exit(1)

@@ -156,7 +156,7 @@ def printToCSV(nodes,fileName):
     print "Computing the following measures"
     print ','.join(measureTags)
     print
-    fileOut.writerow(['Tract'] + measureTags)
+    fileOut.writerow(['tract'] + measureTags)
 
     measureNums = [0]*length
     numberOfInputs=len(nodes)
