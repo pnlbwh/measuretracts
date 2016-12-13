@@ -1,5 +1,5 @@
 import numpy as np
-
+import os.path
 
 def tracer(currentTensor):
     trace=sum(currentTensor.diagonal(offset=0, axis1=0, axis2=1))
@@ -124,7 +124,7 @@ def getData(nodeID):
     results['num_fibers'] = {'num_fibers': num_fibers}
     return results
 
-def printToCSV(nodes,fileName):
+def printToCSV(nodes,fileName,caseid=None):
     """files is the list of VTKs that will be analyzed, fileName is the name that the CSV will be saved as"""
 
     import csv
@@ -156,7 +156,10 @@ def printToCSV(nodes,fileName):
     print "Computing the following measures"
     print ','.join(measureTags)
     print
-    fileOut.writerow(['tract'] + measureTags)
+    header = ['tract'] + measureTags
+    if caseid:
+        header = ['caseid','tract'] + measureTags
+    fileOut.writerow(header)
 
     measureNums = [0]*length
     numberOfInputs=len(nodes)
@@ -177,7 +180,12 @@ def printToCSV(nodes,fileName):
         #printNums=re.sub('\[', '',str(rows[lineNum]),count=0)
         #printNums = ','.join(map(str,rows[lineNum]))
         #fileOut.writerow(printNums)
-        fileOut.writerow([node] + measureNums)
+        basename = os.path.basename(node)
+        basename = os.path.splitext(basename)[0]
+        if caseid:
+            fileOut.writerow([caseid, '"' + basename + '"'] + measureNums)
+        else:
+            fileOut.writerow(['"' + basename + '"'] + measureNums)
         lineNum=lineNum+1
         print "Finished computing measures for '%s'\n" % node
     print
