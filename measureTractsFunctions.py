@@ -124,15 +124,15 @@ def getData(nodeID):
     results['num_fibers'] = {'num_fibers': num_fibers}
     return results
 
-def printToCSV(nodes,fileName,caseid=None):
+def printToCSV(nodes,fileName,extra_header=[],extra_values=[]):
     """files is the list of VTKs that will be analyzed, fileName is the name that the CSV will be saved as"""
 
     import csv
     import os
     if os.path.exists(fileName):
-        fileOut=csv.writer(open(fileName, 'wa'), delimiter=',', quoting=csv.QUOTE_MINIMAL, quotechar=' ')
+        fileOut=csv.writer(open(fileName, 'wa'), delimiter=',', quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
     else:
-        fileOut=csv.writer(open(fileName, 'w'), delimiter=',', quoting=csv.QUOTE_MINIMAL, quotechar=' ')
+        fileOut=csv.writer(open(fileName, 'w'), delimiter=',', quoting=csv.QUOTE_NONNUMERIC, quotechar='"')
 
     nodeID=nodes[0]
     firstNode=getData(nodeID)
@@ -156,9 +156,7 @@ def printToCSV(nodes,fileName,caseid=None):
     print "Computing the following measures"
     print ','.join(measureTags)
     print
-    header = ['tract'] + measureTags
-    if caseid:
-        header = ['caseid','tract'] + measureTags
+    header = extra_header + ['tract'] + measureTags
     fileOut.writerow(header)
 
     measureNums = [0]*length
@@ -182,10 +180,9 @@ def printToCSV(nodes,fileName,caseid=None):
         #fileOut.writerow(printNums)
         basename = os.path.basename(node)
         basename = os.path.splitext(basename)[0]
-        if caseid:
-            fileOut.writerow([caseid, '"' + basename + '"'] + measureNums)
-        else:
-            fileOut.writerow(['"' + basename + '"'] + measureNums)
+        #row = extra_values + ['"' + basename + '"'] + measureNums
+        row = extra_values + [basename] + measureNums
+        fileOut.writerow(row)
         lineNum=lineNum+1
         print "Finished computing measures for '%s'\n" % node
     print

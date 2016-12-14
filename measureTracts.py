@@ -7,7 +7,8 @@ from measureTractsFunctions import printToCSV
 def main():
     parser = argparse.ArgumentParser(description='computes various tract measures including FA and mode and saves the data to a ".csv"')
     parser.add_argument('-i', '--input', dest='files', nargs='+', required=True, help='enter the VTK files you wish to analyze separated by spaces')
-    parser.add_argument('-c', '--caseid', dest='caseid', required=False, default=None, help='Adds a subject id column')
+    parser.add_argument('-c', '--columns', dest='extra_header', nargs='+',required=False, default=[], help='Extra column headers')
+    parser.add_argument('-v', '--values', dest='extra_values', nargs='+',required=False, default=[], help='Extra column values to prepend to every row')
     parser.add_argument('-o', '--output', dest='fileName', required=True, help='name the output that you wish to save your data to')
     parser.add_argument('-f', '--force', default=False, dest='force', required=False, action='store_true', help='specify in order to automatically overwrite any file that shares the name of your output file')
     args = parser.parse_args()
@@ -26,7 +27,7 @@ def main():
         print "Please enter an output with extension .csv"
 
         sys.exit()
-    printToCSV(args.files, str(args.fileName), args.caseid)
+    printToCSV(args.files, str(args.fileName), args.extra_header, args.extra_values)
     #print names, values
 
 if __name__=="__main__":
