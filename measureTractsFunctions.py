@@ -147,8 +147,10 @@ def printToCSV(nodes,fileName,extra_header=[],extra_values=[]):
     length=len(data)
     measureTags = [0]*length
     for num in range(length):
-        these=data[num]+'-'+operation[num]
-        measureTags[num] = these
+        if operation[num] == "num_fibers":
+            measureTags[num] = "num"
+        else:
+            measureTags[num] = data[num]+'_'+operation[num]
     import re
     #printTags=re.sub('\[', '',str(measureTags),count=0)
     #printTags=re.sub('\]', '',str(printTags),count=0)
